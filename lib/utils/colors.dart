@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 const backgroundColor = Color(0xFF383737);
 const buttonColor = Color(0xFF279c43);
@@ -33,7 +34,9 @@ const kPrimaryGradient = LinearGradient(
   ],[Colors.red.shade200,Colors.red.shade700],[Colors.green.shade200,Colors.green.shade700],[Colors.purple.shade200,Colors.purple.shade700]];  
 const double kDefaultPadding = 20.0;
 
-
+var textStyle = TextStyle(color:Colors.black,fontSize: 14.sp,fontWeight: FontWeight.bold);
+            var textStyle2 = TextStyle(color: Colors.black,fontWeight: FontWeight.normal,fontSize: 10.sp);
+            var textStyle3 = TextStyle(color:Colors.red,fontSize: 8.sp);
 //Validator Logic
 // if (_formKey.currentState!.validate()) {
 // // If the form is valid, display a snackbar. In the real world,

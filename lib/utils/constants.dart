@@ -13,10 +13,10 @@ class Constants
     static String IMAGE="image_name";
 
     static int PAGE_SIZE=8;
-
+static String FCM_TOKEN="FCM_TOKEN";
 
 }
-enum AccountType { Administrator, NORMAL }
+enum PostType { EXPLORE,USERPOSTS }
 enum LoadingStatus {loading,notLoading}
 enum ThemeSettings {System_Default,User_Default}
 

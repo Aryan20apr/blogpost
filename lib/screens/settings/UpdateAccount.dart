@@ -16,6 +16,7 @@ import 'package:sizer/sizer.dart';
 import '../../Modals/registrationmodal.dart';
 import '../../providers/UserProvider.dart';
 import '../../utils/api.dart';
+import '../../utils/colors.dart';
 import '../../utils/constants.dart';
 import '../../utils/neumorphic_stuffs.dart';
 
@@ -63,9 +64,7 @@ class _AccountSettingsState extends State<AccountSettings> {
     }
   @override
   Widget build(BuildContext context) {
-var textStyle = TextStyle(color:Colors.black,fontSize: 14.sp,fontWeight: FontWeight.bold);
-            var textStyle2 = TextStyle(color: Colors.black,fontWeight: FontWeight.normal,fontSize: 10.sp);
-            var textStyle3 = TextStyle(color:Colors.red,fontSize: 8.sp);
+
     UserProvider provider=Provider.of<UserProvider>(context);
     aboutController.text=provider.about;
     firstNameController.text=provider.firstname;

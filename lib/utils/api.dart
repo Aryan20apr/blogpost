@@ -22,7 +22,7 @@ import '../Modals/NewPostModal.dart';
 
 class API{
 
-  static const String BASE="https://ba97-14-139-240-85.in.ngrok.io";
+  static const String BASE="https://3bf8-14-139-240-85.in.ngrok.io";
   static const String signin="$BASE/api/auth/login";
   static const String user="$BASE/api/users/single";
   static const String sendotp="$BASE/api/auth/sendotp";
@@ -287,7 +287,7 @@ return ImageUploadResponse.fromJson(response.data);
 
     
     Map<String,dynamic> data={"userid" : int.parse(preferences.getString(Constants.UserId)!),
-                  "catids":catids};
+                "fcmtoken":preferences.getString(Constants.FCM_TOKEN)!,  "catids":catids};
     Response response=await _dio.post(subscribe,options:options,data:data);
     print('Subscription response is $response');
 
@@ -301,7 +301,7 @@ Future<SubscriptionResponseModal> unsubscribeCategories({required List<int> cati
 
     
     Map<String,dynamic> data={"userid" : int.parse(preferences.getString(Constants.UserId)!),
-                  "catids":catids};
+                "fcmtoken":preferences.getString(Constants.FCM_TOKEN)!,  "catids":catids};
     Response response=await _dio.put(unsubscribe,options:options,data:data);
     print('Unsubscription response is $response');
 

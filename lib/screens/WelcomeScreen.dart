@@ -72,7 +72,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                           return Column(
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
-                                              //Image.asset("assets/login.jpg",height: 30.h,),
+                                              Image.asset("assets/login.jpg",height: 30.h,),
                                               SizedBox(height: 3.h,),
                                               Text("Enter your registered email id and password:",style: TextStyle(color: textFieldColor,fontSize: 12.sp),),
                                               SizedBox(height: 2.h,),
@@ -102,6 +102,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                                   decoration: InputDecoration(
                                                       prefixIcon:Icon(Icons.mail_outline_outlined, color: textFieldColor,),
                                                       hintText: 'Email*',
+                                                      errorStyle: textStyle3,
                                                       hintStyle: TextStyle(color: textFieldColor,fontSize: 12.sp)
                                                   ),
                                                 ),
@@ -132,6 +133,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                                   decoration: InputDecoration(
                                                       prefixIcon:Icon(Icons.password_outlined, color:textFieldColor,),
                                                       hintText: 'Password*',
+                                                      errorStyle: textStyle3,
                                                       hintStyle: TextStyle(color: textFieldColor,fontSize: 12.sp)
                                                   ),
                                                 ),
@@ -148,6 +150,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                                             .validate() /*&& isChecked!*/) {
                                         
                                                          bool b= await   login(context,emailController.text,passwordController.text);
+                                                         if(b)
                                                          Get.offAll(()=>NavPage());
                                                         }
                                                       }
@@ -262,7 +265,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                                       //provider.enabled=userData!.enabled!;
 
                                                       provider.isloading=LoadingStatus.notLoading;
-                                                      provider.isInitialized=true;
+                                                      //provider.isInitialized=true;
 
 
                 return true;

@@ -71,18 +71,21 @@ var brightness=SchedulerBinding.instance.window.platformBrightness;
           slivers:<Widget>[
              SliverAppBar(
               
-              actions: [IconButton(onPressed: (){
-               var result= Get.to(()=>AddCategories());
-               //log("result is $result");
-              //  if(result==true)
-              //  {
-      
-              //  log("result is $result");
-              //   setState(() {
-              //     categories=getUserCategories();
-              //   });}
-      
-              }, icon: Icon(LineIcons.plus,size: 4.h,))],
+              actions: [Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: IconButton(onPressed: (){
+                 var result= Get.to(()=>AddCategories());
+                 //log("result is $result");
+                //  if(result==true)
+                //  {
+                    
+                //  log("result is $result");
+                //   setState(() {
+                //     categories=getUserCategories();
+                //   });}
+                    
+                }, icon: Icon(LineIcons.plus,size: 4.h,)),
+              )],
               pinned: true,
               automaticallyImplyLeading: false,
           expandedHeight: height*0.2,

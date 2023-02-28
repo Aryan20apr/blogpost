@@ -4,6 +4,7 @@ import 'package:blogpost/providers/RefreshProvider.dart';
 import 'package:blogpost/screens/Content/Post/CompletePost.dart';
 import 'package:blogpost/screens/NavPage.dart';
 import 'package:blogpost/utils/colors.dart';
+import 'package:blogpost/utils/constants.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -76,7 +77,7 @@ class UserPostsState extends State<UserPosts> with AutomaticKeepAliveClientMixin
         child: CustomScrollView(
           slivers:<Widget>[
              SliverAppBar(
-          expandedHeight: height*0.2,
+          expandedHeight: height*0.15,
           flexibleSpace: FlexibleSpaceBar(
             
             title: Text('Your Posts', textScaleFactor: 1,style: TextStyle(color:Theme.of(context).textTheme.headlineLarge!.color ),),
@@ -180,7 +181,7 @@ class _PostsListWidgetState extends State<PostsListWidget> {
                     borderRadius:BorderRadius.circular(10) ,
                     onTap: ()async
                     {
-                bool b=   await  Get.to(()=>Post(post: widget.posts[index]));
+                bool b=   await  Get.to(()=>Post(post: widget.posts[index],type: PostType.USERPOSTS,));
                     // RefreshProvider provider=Provider.of<RefreshProvider>(context,listen: false);
                       print('b=$b');
                      if(b)

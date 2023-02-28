@@ -1,7 +1,9 @@
 import 'dart:developer';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../utils/constants.dart';
 
@@ -14,6 +16,23 @@ class UserProvider extends ChangeNotifier
     String? _imagename;
     String? imageUrl;
  String? get getImageUrl => this.imageUrl;
+
+  late FirebaseMessaging messaging;
+
+  UserProvider.initialize(SharedPreferences prefs) 
+  {
+    messaging = FirebaseMessaging.instance;
+      saveDeviceFCMToken(prefs);
+  }
+  Future<void> saveDeviceFCMToken(SharedPreferences prefs) async {
+    try {
+      String? token = await messaging.getToken();
+      log('Token obtained: $token');
+      prefs.setString(Constants.FCM_TOKEN, token!);
+    } catch (err) {
+      log('error when obtaining fcm token ${err.toString()}');
+    }
+  }
 
  set setImageUrl(String? imageUrl) => this.imageUrl = imageUrl;
     String _about='';
@@ -132,7 +151,9 @@ String get token => _token;
   {
     log("Initialization status changed");
     this.isInitialized=!this.isInitialized;
+    log("Initialization Condition $isInitialized");
     notifyListeners();
   }
+  
   
 }

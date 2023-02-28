@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:blogpost/Modals/CategoriesModal.dart';
+import 'package:blogpost/providers/NavPageController.dart';
 import 'package:blogpost/screens/Content/NewPost/TextEditor.dart';
 import 'package:blogpost/utils/colors.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
@@ -33,6 +34,7 @@ class NavPage extends StatefulWidget {
 }
 
 class _NavPageState extends State<NavPage> {
+  //NavController navController=Get.put(NavController());
 
   final List<Widget> _pages=[HomePage(),CategoriesPage(),UserPosts(),SettingsPage()];
 late Future <UserModal> user;
@@ -64,6 +66,7 @@ late Future <UserModal> user;
     setState(() {
       _selectedIndex = index;
     });
+    //navController.changePageIndex(index);
     pageController.jumpToPage(index);
   }
 
@@ -71,11 +74,12 @@ late Future <UserModal> user;
     setState(() {
       _selectedIndex = index;
     });
+   // navController.changePageIndex(index);
   }
   @override
   Widget build(BuildContext context) {
 
-    UserProvider provider=Provider.of<UserProvider>(context,listen: false);
+    UserProvider provider=Provider.of<UserProvider>(context);
      var brightness=SchedulerBinding.instance.window.platformBrightness;
     bool isDarkMode=brightness==Brightness.dark;
     return Scaffold(
@@ -100,7 +104,7 @@ late Future <UserModal> user;
         },
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
+        currentIndex: _selectedIndex,//navController.selectedIndex.value,
         backgroundColor: Colors.grey[300],
         onTap: _onTapped,
         items: [
@@ -132,20 +136,24 @@ late Future <UserModal> user;
       },loadingWidget: Center(child: CircularProgressIndicator.adaptive()),opacity: 0.5);
         
       }:(){
-        log("Floating Action Button Tapped and provider not initialized");
+        log("Floating Action Button Tapped and provider not initialized ${provider.isInitialized}");
       },backgroundColor: floatingbuttonbackground,foregroundColor: floatingbuttonforeground, label: Icon(EvaIcons.plus),shape: CircleBorder(),),
     );
   }
 
   void initialize(UserModal userModal,BuildContext context)async {
-
+UserProvider provider=Provider.of<UserProvider>(context,);
+log("Provider initialized: ${provider.isInitialized}");
+if(provider.isInitialized)
+return;
     UserData? userData=userModal.userData;
+    log("User id: ${userData?.id/*userDetails['email']*/}");
                                                       await preferences.setString(Constants.UserId, "${userData?.id/*userDetails['email']*/}");
                                                       await preferences.setString(Constants.EMAIL, "${userData?.email/*userDetails['email']*/}");
                                                       await preferences.setString(Constants.IMAGE, "${userData?.image/*userDetails['email']*/}");
                                                       await preferences.setBool(Constants.LOGIN_STATUS,true);
                                                       
-                                                      UserProvider provider=Provider.of<UserProvider>(context,listen: false);
+                                                      
 
                                                       
                                                       provider.email=userData!.email!;

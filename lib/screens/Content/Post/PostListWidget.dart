@@ -2,10 +2,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../Modals/AllPostsModal.dart';
+import '../../../Modals/UserPostsModal.dart';
 import '../../../utils/colors.dart';
+import 'CompletePost.dart';
 
 class PostsListWidget extends StatefulWidget {
   PostsListWidget({
@@ -56,6 +60,7 @@ class _PostsListWidgetState extends State<PostsListWidget> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
                   child: InkWell(
+                    onTap: () => Get.to(()=>Post(apost: widget.posts[index])),
                     borderRadius:BorderRadius.circular(10) ,
             
                     splashFactory: InkRipple.splashFactory,
@@ -108,4 +113,6 @@ class _PostsListWidgetState extends State<PostsListWidget> {
         ),
       );
   }
+
+
 }
