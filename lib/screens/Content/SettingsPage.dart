@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:blogpost/screens/WelcomeScreen.dart';
+import 'package:blogpost/screens/settings/PasswordChange.dart';
 import 'package:blogpost/screens/settings/UpdateAccount.dart';
 import 'package:blogpost/utils/colors.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
@@ -19,6 +20,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../main.dart';
 import '../../providers/UserProvider.dart';
+import '../settings/PasswordUpdate.dart';
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
 
@@ -113,7 +115,7 @@ class _SettingsPageState extends State<SettingsPage> with AutomaticKeepAliveClie
               leading: Icon(Icons.password_rounded),
               title: Text('Change Password'),
               onPressed: (context) {
-                Get.to(()=>AccountSettings());
+                Get.to(()=>UpdatePassword());
               },
             ),
            

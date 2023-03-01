@@ -31,6 +31,7 @@ class API{
   static const String check="$BASE/api/auth/check";
   static const String resetPassword="$BASE/api/auth/forgotpassword";
   static const String resetotp="$BASE/api/auth/sendresetotp";
+  static const String updatePassword="$BASE/api/users/changepassword";
 
   static const String updateUser="$BASE/api/users/";
 
@@ -162,6 +163,19 @@ Future<PasswordReset> reset(String email,String newPassword) async {
     Response response = await _dio.post(resetPassword, queryParameters: {"email":email,"newpassword":newPassword});
     
     print("Check $response");
+    PasswordReset passwordmodal=PasswordReset.fromJson(response.data);
+    return passwordmodal;
+
+   
+  }
+
+  Future<PasswordReset> changePassword(String oldPassword,String newPassword) async {
+   
+ SharedPreferences preferences=await SharedPreferences.getInstance();
+    Options options=getOptions(preferences.getString(Constants.TOKEN));
+    Response response = await _dio.post(updatePassword, data: {"email":preferences.getString(Constants.EMAIL),"password":oldPassword,"newpassword":newPassword},options: options);
+    
+    print("Password Update Response $response");
     PasswordReset passwordmodal=PasswordReset.fromJson(response.data);
     return passwordmodal;
 
