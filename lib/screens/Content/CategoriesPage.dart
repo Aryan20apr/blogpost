@@ -40,7 +40,7 @@ void initState() {
 
 Future<CategoriesModal> getUserCategories()
 {
-  API api=new API();
+  NetworkUtil api=new NetworkUtil();
   return api.getUserCategories();
 }
 void _onRefresh() async{

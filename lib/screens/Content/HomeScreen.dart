@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
   {
    
     
-    return API().getAllPosts(pageNumber: pageNumber);
+    return NetworkUtil().getAllPosts(pageNumber: pageNumber);
 
   }
 
@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
     // monitor network fetch
     
     
-    futureposts= API().getAllPosts(pageNumber: 0);
+    futureposts= NetworkUtil().getAllPosts(pageNumber: 0);
     Future.wait([futureposts]).then((value) =>
     setState(()
         {
@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
       if(_currentPage+1<_totalPages)
       
     {log("In currentpage+1 <total pages");
-      futureposts= API().getAllPosts(pageNumber: _currentPage+1);
+      futureposts= NetworkUtil().getAllPosts(pageNumber: _currentPage+1);
     Future.wait([futureposts]).then((value) =>
     setState(()
         {

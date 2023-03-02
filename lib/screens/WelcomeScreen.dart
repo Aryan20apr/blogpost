@@ -228,7 +228,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
              Future login(BuildContext context,String email,String password) async
              {
-              API api=API();
+              NetworkUtil api=NetworkUtil();
                ResponseData logininfo=await api.login(email, password);
                if(logininfo.success!)
                {

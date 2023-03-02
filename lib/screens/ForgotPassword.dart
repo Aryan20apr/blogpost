@@ -172,11 +172,11 @@ class _ResetEmailVerificationState extends State<ResetEmailVerification> {
   }
   Future sendOTP(String email)async
   {
-    API api=API();
+    NetworkUtil api=NetworkUtil();
     bool b=await api.checkUser(email);
     if(b)
     {
-      OTPResponse response=await API().sendresetOtp(email);
+      OTPResponse response=await NetworkUtil().sendresetOtp(email);
     if(response.success!)
     return true;
     else

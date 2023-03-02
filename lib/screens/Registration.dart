@@ -248,7 +248,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     );
   }
   Future registerUser(String firstname,String lastname,String email,String password)async
-  { API api=API();
+  { NetworkUtil api=NetworkUtil();
       UserData data = new UserData();
       data.firstname=firstname; 
       data.lastname=lastname;

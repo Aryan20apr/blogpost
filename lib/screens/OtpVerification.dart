@@ -108,7 +108,7 @@ class _OtpVerificationState extends State<OtpVerification> {
 
   Future verifyOtp(int otp)async
   {
-    OTPVerifyModal otpVerifyModal=await API().verifyOtp(otp,widget.email);
+    OTPVerifyModal otpVerifyModal=await NetworkUtil().verifyOtp(otp,widget.email);
     if(otpVerifyModal.success!)
     {
       

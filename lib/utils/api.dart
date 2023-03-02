@@ -20,9 +20,9 @@ import '../Modals/otpresponse.dart';
 import '../Modals/registrationmodal.dart';
 import '../Modals/NewPostModal.dart';
 
-class API{
+class NetworkUtil{
 
-  static const String BASE="https://3bf8-14-139-240-85.in.ngrok.io";
+  static const String BASE="https://b4e5-14-139-240-85.in.ngrok.io";
   static const String signin="$BASE/api/auth/login";
   static const String user="$BASE/api/users/single";
   static const String sendotp="$BASE/api/auth/sendotp";

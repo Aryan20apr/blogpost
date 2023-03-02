@@ -47,14 +47,14 @@ class UserPostsState extends State<UserPosts> with AutomaticKeepAliveClientMixin
   {
    
     
-    return API().getUserPosts();
+    return NetworkUtil().getUserPosts();
 
   }
 
   void _onRefresh() async{
     // monitor network fetch
 
-    futureposts= API().getUserPosts();
+    futureposts= NetworkUtil().getUserPosts();
     Future.wait([futureposts]).then((value) =>
     setState(()
         {

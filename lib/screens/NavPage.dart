@@ -51,7 +51,7 @@ late Future <UserModal> user;
   Future<UserModal> getUser()async
   {
     preferences=await SharedPreferences.getInstance();
-    return await API().getUser(preferences.getString(Constants.EMAIL)!, preferences.getString(Constants.TOKEN));
+    return await NetworkUtil().getUser(preferences.getString(Constants.EMAIL)!, preferences.getString(Constants.TOKEN));
 
     //provider.updateLoadingStatus(LoadingStatus.notLoading);
 
@@ -131,7 +131,7 @@ late Future <UserModal> user;
      
       Get.showOverlay(asyncFunction: ()async{
          CategoriesModal categories;
- categories= await API().getAllCategories();
+ categories= await NetworkUtil().getAllCategories();
  Get.to(()=>CreatePost(categories:categories.data!));
       },loadingWidget: Center(child: CircularProgressIndicator.adaptive()),opacity: 0.5);
         

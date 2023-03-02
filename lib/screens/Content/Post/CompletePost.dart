@@ -63,7 +63,7 @@ class _PostState extends State<Post> {
           TextButton(
             child: const Text('Yes'),
             onPressed: () async{
-              API api=API();
+              NetworkUtil api=NetworkUtil();
               b= await api.deletePost(widget.post!.postId!);
               
               int count=0;

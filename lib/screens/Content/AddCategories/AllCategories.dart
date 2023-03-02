@@ -34,18 +34,18 @@ void initState() {
 }
 Future<CategoriesModal> getUserCategories()
 {
-  API api=new API();
+  NetworkUtil api=new NetworkUtil();
   return api.getUserCategories();
 }
 
 Future<CategoriesModal> getAllCategories()
 {
-  API api=new API();
+  NetworkUtil api=new NetworkUtil();
   return api.getAllCategories();
 }
 
 Future<bool> onWillPop() async
-{API api=API();
+{NetworkUtil api=NetworkUtil();
   if(catids.isNotEmpty)
   {
     api.subscribeCategories(catids: catids);

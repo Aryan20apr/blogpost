@@ -109,7 +109,7 @@ class _OtpForgotPasswordState extends State<OtpForgotPassword> {
 
   Future verifyOtp(int otp)async
   {
-    OTPVerifyModal otpVerifyModal=await API().verifyOtp(otp,widget.email);
+    OTPVerifyModal otpVerifyModal=await NetworkUtil().verifyOtp(otp,widget.email);
     if(otpVerifyModal.success!)
     {
       

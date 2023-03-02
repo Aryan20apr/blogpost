@@ -9,6 +9,7 @@ import 'package:blogpost/utils/Themes.dart';
 import 'package:blogpost/utils/constants.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 import 'fcm/FCMService.dart';
+import 'fcm/ForeGroundNotificationService.dart';
 
 
 
@@ -35,7 +37,7 @@ void main()async {
   //await FirebaseService.initializeFirebase();
 await Firebase.initializeApp();
   
-
+  FirebaseMessaging.onBackgroundMessage(FCMService.firebaseMessagingBackgroundHandler);
   preferences=await SharedPreferences.getInstance();
 
   if(preferences.containsKey(Constants.LOGIN_STATUS)&&preferences.getBool(Constants.LOGIN_STATUS)==true)
@@ -76,7 +78,14 @@ class _MyAppState extends State<MyApp> {
 void initState()
 {
   super.initState();
-  FCMService().configureNotifications();
+
+  LocalNotificationService.initialize(context);
+  
+
+  FCMService.configureForegroundMessaging();
+FCMService.handleMessageClickEvent(loggedIn);
+
+
 }
   // This widget is the root of your application.
   @override

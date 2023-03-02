@@ -337,7 +337,7 @@ class _ChangePasswordState extends State<ChangePassword> {
   }
   Future update({required BuildContext context,required int id,required String firstname,required String lastname,required String email,required String about})async
   {
-     API api = API();
+     NetworkUtil api = NetworkUtil();
      UserData userData = UserData();
      userData.id = id;
      userData.firstname = firstname;

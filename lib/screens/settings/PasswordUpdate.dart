@@ -160,6 +160,6 @@ class _UpdatePasswordState extends State<UpdatePassword> {
   {
     log("Inside ChangePassword");
 
-      return API().changePassword(old, newPassword);
+      return NetworkUtil().changePassword(old, newPassword);
   }
 }

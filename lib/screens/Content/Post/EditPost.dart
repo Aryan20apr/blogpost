@@ -318,7 +318,7 @@ class _EditPostState extends State<EditPost> {
 
   Future createPost({required NewPostData postData,required int userid,required int catid,required XFile? file,required bool isUpdated,required bool isRemoved})async
   {
-    API api = new API();
+    NetworkUtil api = new NetworkUtil();
    
      Get.showOverlay(asyncFunction: ()async{
        NewPostModal? post;

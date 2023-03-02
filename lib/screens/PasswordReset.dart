@@ -212,7 +212,7 @@ class _ResetPasswordState extends State<ResetPassword> {
 
   Future<PasswordReset> resetPassword(String email,String newPassword)async
   {
-    API api=API();
+    NetworkUtil api=NetworkUtil();
     PasswordReset resetModal=await api.reset(email, newPassword);
     return resetModal;
   } 

@@ -302,7 +302,7 @@ List<double> _getCustomItemsHeights() {
 
   Future createPost({required NewPostData postData,required int userid,required int catid,required XFile? file})async
   {
-    API api = new API();
+    NetworkUtil api = new NetworkUtil();
    
      Get.showOverlay(asyncFunction: ()async{
        NewPostModal? post;

@@ -171,7 +171,7 @@ class _EmailVerificationState extends State<EmailVerification> {
   }
   Future sendOTP(String email)async
   {
-    OTPResponse response=await API().sendOtp(email);
+    OTPResponse response=await NetworkUtil().sendOtp(email);
     if(response.success!)
     return true;
     else
