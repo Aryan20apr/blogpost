@@ -1,8 +1,7 @@
 import 'dart:developer';
 
 import 'package:blogpost/Modals/ForgotPassword.dart';
-import 'package:blogpost/screens/settings/PasswordChange.dart';
-import 'package:flutter/material.dart';
+
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
@@ -10,7 +9,6 @@ import 'package:sizer/sizer.dart';
 import '../../utils/api.dart';
 import '../../utils/colors.dart';
 import '../../utils/neumorphic_stuffs.dart';
-import '../NavPage.dart';
 
 class UpdatePassword extends StatefulWidget {
  UpdatePassword({super.key});

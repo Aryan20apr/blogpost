@@ -162,7 +162,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
               if(posts.length==0)
             posts=snapshot.data!.data!.content!;
               log("Posts assigned");
-              return posts.isNotEmpty?PostsListWidget(posts: posts,function: _onRefresh,):SliverToBoxAdapter(child: EmptyListWidget(message: "You don\'t have any posts yet.",));
+              return posts.isNotEmpty?PostsListWidget(posts: posts):SliverToBoxAdapter(child: EmptyListWidget(message: "You don\'t have any posts yet.",));
             }
             else{
               return  SliverToBoxAdapter(child: LoadingWidget());

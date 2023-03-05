@@ -1,8 +1,5 @@
 import 'package:blogpost/Modals/loginmodal.dart';
-import 'package:blogpost/Modals/registrationmodal.dart';
-import 'package:blogpost/screens/Content/HomeScreen.dart';
 import 'package:blogpost/screens/NavPage.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -12,7 +9,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 import '../providers/UserProvider.dart';
-import '../utils/Themes.dart';
 import '../utils/api.dart';
 import '../utils/colors.dart';
 import '../utils/constants.dart';

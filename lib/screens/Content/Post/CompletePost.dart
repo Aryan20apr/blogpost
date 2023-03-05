@@ -16,24 +16,38 @@ import '../../../utils/api.dart';
 import 'EditPost.dart';
 
 class Post extends StatefulWidget {
-   Post({super.key, this.post=null,this.type=PostType.EXPLORE,this.apost=null});
+   Post({super.key, this.post=null,this.type=PostType.EXPLORE,this.content=null,categoryTitle="",firstName=""});
   UserPostData? post;
   PostType type;
-  Content? apost;
+  Content? content;
+  String? categoryTitle;
+  String? firstName;
   @override
   State<Post> createState() => _PostState();
 }
 
 class _PostState extends State<Post> {
+
+  @override
+  void initState()
+  {
+    super.initState();
+    if(widget.categoryTitle!=null)
+    {widget.content!.category!.categoryTitle=widget.categoryTitle;
+    widget.content!.user!.firstname=widget.firstName;}
+  }
+  
   
   @override
   Widget build(BuildContext context) {
+
     var brightness=SchedulerBinding.instance.window.platformBrightness;
     bool isDarkMode=brightness==Brightness.dark;
     
    
     return SafeArea(child:Scaffold(
       appBar: AppBar(
+        
         elevation: 0.0,
      
         actions: widget.type==PostType.EXPLORE?[]:[PopupMenuButton(itemBuilder: (context){
@@ -98,19 +112,19 @@ class _PostState extends State<Post> {
       ),
       body: Container(
         decoration:!isDarkMode?  BoxDecoration(image: DecorationImage(image: AssetImage('assets/background.jpg',),fit: BoxFit.fill,)):BoxDecoration(),
-        height: 100.h,
-        width: 100.w,
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Container(
-            height: 100.h,
-            width: 95.w,
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width*0.95,
             child: Column(
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
-                              width: 95.w,
+                              width: MediaQuery.of(context).size.width*0.95,
                     decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10)),color: Theme.of(context).cardTheme.color),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -134,7 +148,7 @@ class _PostState extends State<Post> {
 
   Container UserContentWidget(BuildContext context) {
     return Container(
-            width: 95.w,
+            width: MediaQuery.of(context).size.width*0.95,
                 decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(20)),color: Theme.of(context).cardTheme.color),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -155,22 +169,22 @@ class _PostState extends State<Post> {
   }
   Container ExploreContentWidget(BuildContext context) {
     return Container(
-            width: 95.w,
+            width: MediaQuery.of(context).size.width*0.95,
                 decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(20)),color: Theme.of(context).cardTheme.color),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-          children: [  widget.apost!.imageUrl!=null?Center(
+          children: [  widget.content!.imageUrl!=null?Center(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: CachedNetworkImage( width: 95.w,
-              height:20.h,placeholder:((context, url) => Image.asset(fit: BoxFit.fill,'assets/no_image.jpg')) ,imageUrl: '${widget.apost!.imageUrl}?si=Client%20Read&spr=https&sv=2021-06-08&sr=c&sig=Ph0eekL09Jv82offqeob14Lyhg7oZNI611YPmKjsx5g%3D'),
+              height:20.h,placeholder:((context, url) => Image.asset(fit: BoxFit.fill,'assets/no_image.jpg')) ,imageUrl: '${widget.content!.imageUrl}${Constants.SAS}'),
             ),
           ):SizedBox(height: 0.0,width: 0.0,),
             
                                  
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text('${widget.apost!.content!}',style: Theme.of(context).textTheme.displaySmall!.copyWith(fontSize: 12.sp),),
+            child: Text('${widget.content!.content!}',style: Theme.of(context).textTheme.displaySmall!.copyWith(fontSize: 12.sp),),
           )],                  ),
           );
   }
@@ -191,15 +205,15 @@ class _PostState extends State<Post> {
   }
   Column Explore(BuildContext context) {
      
-     DateTime dateTime=DateTime.parse(widget.apost!.addedDate!);
+     DateTime dateTime=DateTime.parse(widget.content!.addedDate!);
     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                             children: [ RichText(text: TextSpan(children: [
-                              TextSpan(text:'${widget.apost!.user!.firstname} ${widget.apost!.user!.lastname}',style: Theme.of(context).textTheme.titleMedium),
+                              TextSpan(text:'${widget.content!.user!.firstname} ${widget.content!.user!.lastname}',style: Theme.of(context).textTheme.titleMedium),
                               TextSpan(text: ' in',style: Theme.of(context).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.normal)),
-                              TextSpan(text: ' ${widget.apost!.category!.categoryTitle!}',style: Theme.of(context).textTheme.titleMedium)
-                            ])), Text('${widget.apost!.title}',style: Theme.of(context).textTheme.titleLarge),Text('${dateTime.day}/${dateTime.month}/${dateTime.year}',style: Theme.of(context).textTheme.titleMedium) ],
+                              TextSpan(text: ' ${widget.content!.category!.categoryTitle!}',style: Theme.of(context).textTheme.titleMedium)
+                            ])), Text('${widget.content!.title}',style: Theme.of(context).textTheme.titleLarge),Text('${dateTime.day}/${dateTime.month}/${dateTime.year}',style: Theme.of(context).textTheme.titleMedium) ],
                             
                     );
   }

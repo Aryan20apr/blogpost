@@ -256,3 +256,53 @@ class User {
     return data;
   }
 }
+
+
+class CategoryPosts {
+  List<Content>? _data;
+  String? _message;
+  bool? _success;
+
+  CategoryPosts({List<Content>? data, String? message, bool? success}) {
+    if (data != null) {
+      this._data = data;
+    }
+    if (message != null) {
+      this._message = message;
+    }
+    if (success != null) {
+      this._success = success;
+    }
+  }
+
+  List<Content>? get data => _data;
+  set data(List<Content>? data) => _data = data;
+  String? get message => _message;
+  set message(String? message) => _message = message;
+  bool? get success => _success;
+  set success(bool? success) => _success = success;
+
+  CategoryPosts.fromJson(Map<String, dynamic> json) {
+    if (json['data'] != null) {
+      _data = <Content>[];
+      json['data'].forEach((v) {
+        _data!.add(new Content.fromJson(v));
+      });
+    }
+    _message = json['message'];
+    _success = json['success'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this._data != null) {
+      data['data'] = this._data!.map((v) => v.toJson()).toList();
+    }
+    data['message'] = this._message;
+    data['success'] = this._success;
+    return data;
+  }
+}
+
+
+

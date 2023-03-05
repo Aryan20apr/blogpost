@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -41,8 +40,10 @@ class _AccountSettingsState extends State<AccountSettings> {
   late TextEditingController aboutController;
 
   
+  @override
   void initState()
   {
+    super.initState();
     phoneNumberController = TextEditingController();
     firstNameController = TextEditingController();
     lastNameController = TextEditingController();
@@ -54,7 +55,7 @@ class _AccountSettingsState extends State<AccountSettings> {
   }
 
   Future getImage() async {
-      var image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      //var image = await ImagePicker().pickImage(source: ImageSource.gallery);
 
 
       // setState(() {

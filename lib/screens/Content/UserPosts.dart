@@ -203,12 +203,13 @@ class _PostsListWidgetState extends State<PostsListWidget> {
                           Expanded(
                             flex: 3,
                             child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                               Text('You in ${widget.posts[index].category!.categoryTitle!}'),
-                               Text(widget.posts[index].title!),
-                               Text('${widget.posts[index].addedDate!}')
+                               Text('You in ${widget.posts[index].category!.categoryTitle!}',style: Theme.of(context).textTheme.titleMedium!.copyWith(fontWeight:FontWeight.normal,fontSize: 14.sp)),
+                               Text(widget.posts[index].title!,style: Theme.of(context).textTheme.titleMedium!.copyWith(fontWeight:FontWeight.normal,fontSize: 12.sp)),
+                               Text('${widget.posts[index].addedDate!}',style: Theme.of(context).textTheme.titleMedium!.copyWith(fontWeight:FontWeight.normal,fontSize:10.sp))
+                               
                           ,                             Row(),
                                     
                                     

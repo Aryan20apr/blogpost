@@ -4,7 +4,6 @@ import 'dart:io';
 
 import 'package:blogpost/Modals/CategoriesModal.dart';
 import 'package:blogpost/Modals/UserPostsModal.dart';
-import 'package:blogpost/screens/PasswordReset.dart';
 import 'package:blogpost/utils/constants.dart';
 import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
@@ -22,7 +21,7 @@ import '../Modals/NewPostModal.dart';
 
 class API{
 
-  static const String BASE="https://b4e5-14-139-240-85.in.ngrok.io";
+  static const String BASE="https://3bca-14-139-240-85.in.ngrok.io";
   static const String signin="$BASE/api/auth/login";
   static const String user="$BASE/api/users/single";
   static const String sendotp="$BASE/api/auth/sendotp";
@@ -42,6 +41,7 @@ class API{
   static const String post="$BASE/api/user/posts";
   static const String upload="$BASE/api/blob/post/upload";
   static const String postbyuser="$BASE/api/userposts";
+  static const String postbycategory="$BASE/api/category/posts";
   static const String updatepost="$BASE/api/post/update";
    static const String deletepost="$BASE/api/post/delete";
    static const String allposts="$BASE/api/posts";
@@ -66,7 +66,7 @@ Future<ResponseData> login(String email,String password) async
     print(query);
     Response response = await _dio.post(signin, data: query);
     print("Login response is $response");
-    Map<String, dynamic> data = response.data;
+    //Map<String, dynamic> data = response.data;
 
    return ResponseData.fromJson(response.data);
     //return data;
@@ -84,7 +84,7 @@ Future<UserModal> getUser(String email,String? token) async
     Options options = getOptions(token);
     Response response = await _dio.get(user, queryParameters: query,options: options );
     print(response);
-    Map<String, dynamic> data = response.data;
+    //Map<String, dynamic> data = response.data;
 
 
     return UserModal.fromJson(response.data);
@@ -266,6 +266,20 @@ return ImageUploadResponse.fromJson(response.data);
     
     print('User Posts response is $response');
    UserPostsModal modal=UserPostsModal.fromJson(response.data);
+    return modal;
+  }
+
+  Future<CategoryPosts> getCategoryPosts(int categoryId)async
+  {
+    SharedPreferences preferences=await SharedPreferences.getInstance();
+    Options options=getOptions(preferences.getString(Constants.TOKEN));
+
+    
+    Map<String,int> query={"categoryId" : categoryId};
+    Response response = await _dio.get(postbycategory,options: options,queryParameters: query);
+    
+    print('Category Posts response is $response');
+   CategoryPosts modal=CategoryPosts.fromJson(response.data);
     return modal;
   }
   Future<AllPostsModal> getAllPosts({required int pageNumber})async
