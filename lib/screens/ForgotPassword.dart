@@ -1,45 +1,17 @@
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import 'package:sizer/sizer.dart';
-// class SignUp extends StatelessWidget {
-//   const SignUp({super.key});
+ import 'package:flutter/material.dart';
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return SafeArea(child: Scaffold(backgroundColor:Theme.of(context).scaffoldBackgroundColor ,
-//     body: Container(
-//       height: 100.h,
-//       width: 100.w,
-//       child:LayoutBuilder(builder: (context,constraints){
-//         return Column(
-          
-//           crossAxisAlignment: CrossAxisAlignment.center,
-//           children: [
-            
-
-//           ],
-
-//         );
-//       }),
-//     ),));
-//   }
-// }
 
 
 import 'package:blogpost/Modals/otpresponse.dart';
 import 'package:blogpost/screens/OTPForgotPassword.dart';
-import 'package:blogpost/utils/Themes.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 import '../utils/api.dart';
 import '../utils/neumorphic_stuffs.dart';
-import 'OtpVerification.dart';
 
 class ResetEmailVerification extends StatefulWidget {
   const ResetEmailVerification({Key? key}) : super(key: key);
@@ -54,9 +26,11 @@ class _ResetEmailVerificationState extends State<ResetEmailVerification> {
   late TextEditingController emailController;
 
   late TextEditingController otpController;
+
+  @override
   void initState()
   {
-
+      super.initState();
     emailController = TextEditingController();
 
     otpController = TextEditingController();
@@ -134,8 +108,8 @@ class _ResetEmailVerificationState extends State<ResetEmailVerification> {
                           ),
                       Padding(
                           padding:  EdgeInsets.all(8.0),
-                          child: ElevatedButton.icon(
-                            onPressed: ()async {
+                          child:  NeumorphicStuffs().getImportantButton(
+                            ontapped: ()async {
                               if(_formKey.currentState!.validate())
                                 {
                 
@@ -147,15 +121,15 @@ class _ResetEmailVerificationState extends State<ResetEmailVerification> {
                                      
                                 }
                             },
-                            icon: Icon(Icons.password_sharp),
-                            label: Text("Send OTP"),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.green,
-                              minimumSize: Size(30.w,8.h),
-                              shape: new RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(10.0),
-                              ),
-                            ),
+                            //icon: Icon(Icons.password_sharp),
+                            text: "Send OTP"
+                            // style: ElevatedButton.styleFrom(
+                            //   backgroundColor: Colors.green,
+                            //   minimumSize: Size(30.w,8.h),
+                            //   shape: new RoundedRectangleBorder(
+                            //     borderRadius: new BorderRadius.circular(10.0),
+                            //   ),
+                            // ),
                           ),
                       )
                     ],

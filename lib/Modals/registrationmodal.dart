@@ -48,6 +48,7 @@ class UserData {
   String? _about;
   String? _image;
   String? _imageurl;
+  List<int>? _catids;
 
   UserData(
       {int? id,
@@ -57,7 +58,8 @@ class UserData {
       String? password,
       String? about,
       String? image,
-      String? imageurl}) {
+      String? imageurl,
+      List<int>? catids}) {
     if (id != null) {
       this._id = id;
     }
@@ -82,6 +84,9 @@ class UserData {
     if (imageurl != null) {
       this._imageurl = imageurl;
     }
+    if (catids != null) {
+      this._catids = catids;
+    }
   }
 
   int? get id => _id;
@@ -100,6 +105,8 @@ class UserData {
   set image(String? image) => _image = image;
   String? get imageurl => _imageurl;
   set imageurl(String? imageurl) => _imageurl = imageurl;
+   List<int>? get catids => _catids;
+  set catids(List<int>? catids) => _catids = catids;
 
   UserData.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
@@ -110,6 +117,7 @@ class UserData {
     _about = json['about'];
     _image = json['image'];
     _imageurl = json['imageurl'];
+     _catids = json['catids'].cast<int>();
   }
 
   Map<String, dynamic> toJson() {
@@ -122,6 +130,8 @@ class UserData {
     data['about'] = this._about;
     data['image'] = this._image;
     data['imageurl'] = this._imageurl;
+    data['catids'] = this._catids;
     return data;
   }
 }
+

@@ -10,6 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Modals/AllPostsModal.dart';
+import '../Modals/CommentModal.dart';
 import '../Modals/ForgotPassword.dart';
 import '../Modals/ImageUploadResponse.dart';
 import '../Modals/OTPVerifyModal.dart';
@@ -21,7 +22,7 @@ import '../Modals/NewPostModal.dart';
 
 class API{
 
-  static const String BASE="https://3bca-14-139-240-85.in.ngrok.io";
+  static const String BASE="https://68e2-14-139-240-85.in.ngrok.io";
   static const String signin="$BASE/api/auth/login";
   static const String user="$BASE/api/users/single";
   static const String sendotp="$BASE/api/auth/sendotp";
@@ -45,7 +46,11 @@ class API{
   static const String updatepost="$BASE/api/post/update";
    static const String deletepost="$BASE/api/post/delete";
    static const String allposts="$BASE/api/posts";
-Dio _dio=Dio();
+
+  static const String comment="$BASE/api/comments/co";
+  
+
+    Dio _dio=Dio();
 
  Options getOptions(String? token)
   {
@@ -82,12 +87,22 @@ Future<UserModal> getUser(String email,String? token) async
     print('token=$token');
 
     Options options = getOptions(token);
-    Response response = await _dio.get(user, queryParameters: query,options: options );
+     Response? response;
+    try{
+
+    response = await _dio.get(user, queryParameters: query,options: options );
     print(response);
     //Map<String, dynamic> data = response.data;
 
 
     return UserModal.fromJson(response.data);
+    }
+    catch(e)
+    {
+      log("Error: ${e.toString()}");
+      return UserModal(data: null,message: response!.data["message"],success:false);
+    }
+    
 
 }
 Future<OTPResponse> sendOtp(String email) async {
@@ -334,6 +349,32 @@ Future<SubscriptionResponseModal> unsubscribeCategories({required List<int> cati
     print('Unsubscription response is $response');
 
     return SubscriptionResponseModal.fromJson(response.data);
+}
+
+Future<CommentsListDTO> getComments({required int postId})async
+{
+SharedPreferences preferences=await SharedPreferences.getInstance();
+    Options options=getOptions(preferences.getString(Constants.TOKEN));
+
+    
+    Map<String,dynamic> data={"postId" : postId};
+    Response response=await _dio.get(comment,options:options,queryParameters: data);
+    print('Comments of post $postId $response');
+
+    return CommentsListDTO.fromJson(response.data);
+}
+
+Future<Comment> postComment({required int postId,required String text})async
+{
+SharedPreferences preferences=await SharedPreferences.getInstance();
+    Options options=getOptions(preferences.getString(Constants.TOKEN));
+
+    
+    Map<String,dynamic> data={"postId" : postId,"userId":preferences.getString(Constants.UserId)};
+    Response response=await _dio.post(comment,options:options,queryParameters: data,data: {"content" : text});
+    print('Comment post response $postId $response');
+
+    return Comment.fromJson(response.data);
 }
   }
 

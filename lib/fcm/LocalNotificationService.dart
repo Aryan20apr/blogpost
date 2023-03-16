@@ -1,16 +1,16 @@
 import 'dart:developer';
 
-import 'package:blogpost/screens/settings/PasswordChange.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Modals/AllPostsModal.dart';
 import '../screens/Content/Post/CompletePost.dart';
-import '../screens/Content/Post/FeedPost.dart';
+import 'package:blogpost/Modals/CategoriesModal.dart' as Topic;
 
 class LocalNotificationService {
   static final FlutterLocalNotificationsPlugin _notificationPlugin =
@@ -32,8 +32,8 @@ class LocalNotificationService {
       onDidReceiveNotificationResponse:
           (NotificationResponse notificationResponse) {
         log('Foreground notification clicked: response type: ${notificationResponse.notificationResponseType}');
-        log('===DATE===: ${_data['addDate']}');
-       Content post=Content(postId: _data['postId'],title: _data['title'],content: _data['content'],imageName:_data['imageName'] ,imageUrl:_data['imageUrl'],addedDate:_data['addedDate'] );
+       // log('===DATE===: ${_data['addDate']}');
+       Content post=Content(postId: int.parse(_data['postId']),title: _data['title'],category: Topic.Category(categoryTitle: _data['category']),content: _data['content'],imageName:_data['imageName'] ,imageUrl:_data['imageUrl'],addedDate:_data['addedDate'],user: User(firstname: _data['firstName'],lastname: _data['lastName']) );
         Get.to(() =>Post(content: post, categoryTitle:_data["category"],firstName:_data["user"]));
             //ViewArticle(post: post, sharedPreferences: sharedPreferences));
         // switch (notificationResponse.notificationResponseType) {

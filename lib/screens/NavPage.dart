@@ -1,20 +1,14 @@
 import 'dart:developer';
 
 import 'package:blogpost/Modals/CategoriesModal.dart';
-import 'package:blogpost/providers/NavPageController.dart';
 import 'package:blogpost/screens/Content/NewPost/TextEditor.dart';
 import 'package:blogpost/utils/colors.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
-import 'package:line_icons/line_icons.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:loading_overlay/loading_overlay.dart';
 import 'package:sizer/sizer.dart';
 
 import '../Modals/registrationmodal.dart';
@@ -25,6 +19,7 @@ import 'Content/CategoriesPage.dart';
 import 'Content/HomeScreen.dart';
 import 'Content/SettingsPage.dart';
 import 'Content/UserPosts.dart';
+import 'WelcomeScreen.dart';
 
 class NavPage extends StatefulWidget {
   const NavPage({super.key});
@@ -51,8 +46,14 @@ late Future <UserModal> user;
   Future<UserModal> getUser()async
   {
     preferences=await SharedPreferences.getInstance();
-    return await API().getUser(preferences.getString(Constants.EMAIL)!, preferences.getString(Constants.TOKEN));
-
+    UserModal modal=await  API().getUser(preferences.getString(Constants.EMAIL)!, preferences.getString(Constants.TOKEN));
+    if(modal.success==false)
+    {
+      SharedPreferences preferences =await SharedPreferences.getInstance();
+      preferences.setBool(Constants.LOGIN_STATUS, false);
+     Get.offAll(()=>WelcomeScreen(),duration:Duration(seconds:1),transition: Transition.leftToRight);
+    }
+    return modal;
     //provider.updateLoadingStatus(LoadingStatus.notLoading);
 
   }
@@ -80,8 +81,8 @@ late Future <UserModal> user;
   Widget build(BuildContext context) {
 
     UserProvider provider=Provider.of<UserProvider>(context);
-     var brightness=SchedulerBinding.instance.window.platformBrightness;
-    bool isDarkMode=brightness==Brightness.dark;
+     //var brightness=SchedulerBinding.instance.window.platformBrightness;
+    //bool isDarkMode=brightness==Brightness.dark;
     return Scaffold(
       // appBar: AppBar(
       //   title: Text("Home"),
@@ -132,7 +133,7 @@ late Future <UserModal> user;
       Get.showOverlay(asyncFunction: ()async{
          CategoriesModal categories;
  categories= await API().getAllCategories();
- Get.to(()=>CreatePost(categories:categories.data!));
+ Get.to(()=>CreatePost(categories:categories.data!),duration:Duration(seconds:1),transition: Transition.fadeIn);
       },loadingWidget: Center(child: CircularProgressIndicator.adaptive()),opacity: 0.5);
         
       }:(){
@@ -147,16 +148,18 @@ log("Provider initialized: ${provider.isInitialized}");
 if(provider.isInitialized)
 return;
     UserData? userData=userModal.userData;
-    log("User id: ${userData?.id/*userDetails['email']*/}");
-                                                      await preferences.setString(Constants.UserId, "${userData?.id/*userDetails['email']*/}");
-                                                      await preferences.setString(Constants.EMAIL, "${userData?.email/*userDetails['email']*/}");
-                                                      await preferences.setString(Constants.IMAGE, "${userData?.image/*userDetails['email']*/}");
+    if(userData==null)
+    return;
+    log("User id: ${userData.id/*userDetails['email']*/}");
+                                                      await preferences.setString(Constants.UserId, "${userData.id/*userDetails['email']*/}");
+                                                      await preferences.setString(Constants.EMAIL, "${userData.email/*userDetails['email']*/}");
+                                                      await preferences.setString(Constants.IMAGE, "${userData.image/*userDetails['email']*/}");
                                                       await preferences.setBool(Constants.LOGIN_STATUS,true);
                                                       
                                                       
 
                                                       
-                                                      provider.email=userData!.email!;
+                                                      provider.email=userData.email!;
                                                       provider.firstname=userData.firstname!;
                                                       provider.lastname=userData.lastname!;
                                                      // provider.phoneNumber=userData!.phone!;
@@ -177,6 +180,9 @@ return;
 
                                                       provider.isloading=LoadingStatus.notLoading;
                                                       provider.updateInitialization();
+                         
+                          if(userData.catids!.isNotEmpty)
+                          API().subscribeCategories(catids: userData.catids!);
 
   }
 }

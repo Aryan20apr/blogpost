@@ -1,6 +1,6 @@
 
 import 'package:blogpost/utils/api.dart';
-import 'package:flutter/material.dart';
+
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -34,8 +34,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
   
   late TextEditingController passwordController;
   //AccountType? _accountType=null;
+
+  @override
   void initState()
   {
+    super.initState();
     //phoneNumberController = TextEditingController();
     firstNameController = TextEditingController();
     lastNameController = TextEditingController();
@@ -280,8 +283,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
                                                       
                                                       provider.email=userData!.email!;
-                                                      provider.firstname=userData!.firstname!;
-                                                      provider.lastname=userData!.lastname!;
+                                                      provider.firstname=userData.firstname!;
+                                                      provider.lastname=userData.lastname!;
                                                      // provider.phoneNumber=userData!.phone!;
                                                       provider.id=userData.id!;
                                                       provider.imagename=userData.image;

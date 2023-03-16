@@ -1,12 +1,14 @@
 import 'package:blogpost/Modals/UserPostsModal.dart';
 import 'package:blogpost/providers/RefreshProvider.dart';
+import 'package:blogpost/screens/Content/CommentScreen.dart';
+import 'package:blogpost/utils/colors.dart';
 import 'package:blogpost/utils/constants.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:drop_shadow/drop_shadow.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/scheduler.dart';
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -35,6 +37,11 @@ class _PostState extends State<Post> {
     if(widget.categoryTitle!=null)
     {widget.content!.category!.categoryTitle=widget.categoryTitle;
     widget.content!.user!.firstname=widget.firstName;}
+    if(widget.content!.imageName==null)
+    {
+      widget.content!.imageName=null;
+      widget.content!.imageUrl=null;
+    }
   }
   
   
@@ -47,7 +54,7 @@ class _PostState extends State<Post> {
    
     return SafeArea(child:Scaffold(
       appBar: AppBar(
-        
+        backgroundColor: isDarkMode?Colors.black:Colors.green.shade800,foregroundColor: Colors.white,
         elevation: 0.0,
      
         actions: widget.type==PostType.EXPLORE?[]:[PopupMenuButton(itemBuilder: (context){
@@ -80,7 +87,7 @@ class _PostState extends State<Post> {
               API api=API();
               b= await api.deletePost(widget.post!.postId!);
               
-              int count=0;
+              //int count=0;
               RefreshProvider provider=Provider.of<RefreshProvider>(context,listen:false);
               provider.changeRefresh();
             //  Navigator.popUntil(context, (route) {
@@ -107,8 +114,14 @@ class _PostState extends State<Post> {
           }
         },
         )],
-        foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
+        
 
+      ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: FloatingActionButton(backgroundColor: floatingbuttonbackground,foregroundColor: floatingbuttonforeground,shape: CircleBorder(),onPressed: (){
+          goToResponseScreen();
+        },child: Icon(FontAwesomeIcons.comment),),
       ),
       body: Container(
         decoration:!isDarkMode?  BoxDecoration(image: DecorationImage(image: AssetImage('assets/background.jpg',),fit: BoxFit.fill,)):BoxDecoration(),
@@ -156,7 +169,7 @@ class _PostState extends State<Post> {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: CachedNetworkImage( width: 95.w,
-              height:20.h,placeholder:((context, url) => Image.asset(fit: BoxFit.cover,'assets/no_image.jpg')) ,imageUrl: '${widget.post!.imageUrl}?si=Client%20Read&spr=https&sv=2021-06-08&sr=c&sig=Ph0eekL09Jv82offqeob14Lyhg7oZNI611YPmKjsx5g%3D'),
+              height:20.h,placeholder:((context, url) => Image.asset(scale: 0.8,fit: BoxFit.cover,'assets/no_image.jpg')) ,imageUrl: '${widget.post!.imageUrl}${Constants.SAS}'),
             ),
           ):SizedBox(height: 0.0,width: 0.0,),
             
@@ -177,7 +190,8 @@ class _PostState extends State<Post> {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: CachedNetworkImage( width: 95.w,
-              height:20.h,placeholder:((context, url) => Image.asset(fit: BoxFit.fill,'assets/no_image.jpg')) ,imageUrl: '${widget.content!.imageUrl}${Constants.SAS}'),
+              height:20.h,placeholder:((context, url) => Image.asset(width: 95.w,
+              height:20.h,scale: 0.8,fit: BoxFit.fitWidth,'assets/no_image.jpg')) ,imageUrl: '${widget.content!.imageUrl}${Constants.SAS}'),
             ),
           ):SizedBox(height: 0.0,width: 0.0,),
             
@@ -216,5 +230,13 @@ class _PostState extends State<Post> {
                             ])), Text('${widget.content!.title}',style: Theme.of(context).textTheme.titleLarge),Text('${dateTime.day}/${dateTime.month}/${dateTime.year}',style: Theme.of(context).textTheme.titleMedium) ],
                             
                     );
+  }
+
+  void goToResponseScreen()
+  {
+    if(widget.type==PostType.USERPOSTS)
+    Get.to(()=>ResponseScreen(postId: widget.post!.postId!),transition: Transition.rightToLeft,duration: Duration(milliseconds: 500));
+    else
+    Get.to(()=>ResponseScreen(postId: widget.content!.postId!),transition: Transition.rightToLeft,duration: Duration(milliseconds: 500));
   }
 }

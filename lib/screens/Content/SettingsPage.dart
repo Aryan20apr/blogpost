@@ -1,25 +1,22 @@
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:blogpost/screens/WelcomeScreen.dart';
-import 'package:blogpost/screens/settings/PasswordChange.dart';
 import 'package:blogpost/screens/settings/UpdateAccount.dart';
+import 'package:blogpost/utils/api.dart';
 import 'package:blogpost/utils/colors.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../main.dart';
 import '../../providers/UserProvider.dart';
+import '../../utils/constants.dart';
 import '../settings/PasswordUpdate.dart';
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -108,14 +105,14 @@ class _SettingsPageState extends State<SettingsPage> with AutomaticKeepAliveClie
               leading: Icon(EvaIcons.personOutline),
               title: Text('Update Profile'),
               onPressed: (context) {
-                Get.to(()=>AccountSettings());
+                Get.to(()=>AccountSettings(),duration:Duration(seconds:1),transition: Transition.rightToLeft);
               },
             ),
              SettingsTile.navigation(
               leading: Icon(Icons.password_rounded),
               title: Text('Change Password'),
               onPressed: (context) {
-                Get.to(()=>UpdatePassword());
+                Get.to(()=>UpdatePassword(),duration:Duration(seconds:1),transition: Transition.rightToLeft);
               },
             ),
            
@@ -160,9 +157,12 @@ class _SettingsPageState extends State<SettingsPage> with AutomaticKeepAliveClie
             SettingsTile.navigation(
               leading: Icon(FontAwesomeIcons.arrowRightFromBracket),
               title: Text('Logout'),
-              onPressed: (context) {
-
-                Get.offAll(()=>WelcomeScreen());
+              onPressed: (context) async{
+                        SharedPreferences preferences=await SharedPreferences.getInstance();
+                        preferences.setBool(Constants.LOGIN_STATUS, false);
+                        UserProvider provider=Provider.of<UserProvider>(context,listen: false);
+                        API().unsubscribeCategories(catids: provider.catids);
+                Get.offAll(()=>WelcomeScreen(),duration:Duration(seconds:1),transition: Transition.leftToRight);
               },
             ),])
       ],

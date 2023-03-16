@@ -1,10 +1,7 @@
 import 'package:blogpost/Modals/UserPostsModal.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -74,20 +71,7 @@ class _EditPostState extends State<EditPost> {
   }
   return _menuItems;
 }
-// List<double> _getCustomItemsHeights() {
-//   List<double> _itemsHeights = [];
-//   for (var i = 0; i < (widget.categories.length * 2) - 1; i++) {
-//     if (i.isEven) {
-//       _itemsHeights.add(40);
-//     }
-//     //Dividers indexes will be the odd indexes
-//     if (i.isOdd) {
-//       _itemsHeights.add(4);
-//     }
-//   }
-//   return _itemsHeights;
-// }
-//String? selectedValue;
+
   @override
   Widget build(BuildContext context) {
    
@@ -231,40 +215,7 @@ class _EditPostState extends State<EditPost> {
                                },),
                             shape:ContinuousRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),tileColor: Theme.of(context).cardTheme.color ,),
 
-                          // Row(
-                          //   children: [
-                          //     Expanded(flex: 1,child: Text('Choose the topic for this post',style: textStyle,)),
-                          //     Expanded(
-                          //       flex: 1,
-                          //       child: Center(
-                          //           child: DropdownButtonHideUnderline(
-                          //             child: DropdownButton2(
-                          //               isExpanded: true,
-                          //               hint: Text(
-                          //                 'Select Category',
-                          //                 style: TextStyle(
-                          //                   fontSize: 14,
-                          //                   color: Theme.of(context).hintColor,
-                          //                 ),
-                          //               ),
-                          //               items: _addDividersAfterItems(widget.categories),
-                          //               customItemsHeights: _getCustomItemsHeights(),
-                          //               value: post.id,
-                          //               onChanged: (value) {
-                                         
-                          //                  post.updateCategory(value!);
-                                          
-                          //               },
-                          //               buttonHeight: 40,
-                          //               dropdownMaxHeight: 200,
-                          //               buttonWidth: 140,
-                          //               itemPadding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          //             ),
-                          //           ),
-                          //         ),
-                          //     ),
-                          //   ],
-                          // ),
+                         
                            Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 15.0),
                     child: Container(
@@ -331,11 +282,7 @@ class _EditPostState extends State<EditPost> {
          uploadResponse=await api.uploadImage(file, post.data!.postId!);
         imagesuccess=uploadResponse.success;
       }
-      // else if(file==null&&isRemoved)
-      // {
-      //   ImageUploadResponse uploadResponse=await api.uploadImage(null, post.data!.postId!);
-      //   imagesuccess=uploadResponse.success;
-      // }
+      
       return {"imageResponse":uploadResponse, "postResponse":post};
       
       },loadingWidget: Center(child: CircularProgressIndicator.adaptive()),opacity: 0.5).then((value ) async{

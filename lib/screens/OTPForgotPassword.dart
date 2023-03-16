@@ -1,7 +1,6 @@
 
 import 'package:blogpost/Modals/OTPVerifyModal.dart';
 import 'package:blogpost/screens/PasswordReset.dart';
-import 'package:blogpost/screens/Registration.dart';
 import 'package:blogpost/utils/api.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -22,7 +21,7 @@ class OtpForgotPassword extends StatefulWidget {
 class _OtpForgotPasswordState extends State<OtpForgotPassword> {
 
 
-  final _formKey = GlobalKey<FormState>();
+  //final _formKey = GlobalKey<FormState>();
 
    OtpFieldController otpController=OtpFieldController();
 

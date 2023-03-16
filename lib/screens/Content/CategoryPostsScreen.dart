@@ -1,7 +1,5 @@
 import 'package:blogpost/screens/Content/Post/PostListWidget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 import '../../Modals/AllPostsModal.dart';
 
@@ -19,7 +17,7 @@ class _CategoryPostsScreenState extends State<CategoryPostsScreen> {
   Widget build(BuildContext context) {
     
       double height=MediaQuery.of(context).size.height;
-    double width=MediaQuery.of(context).size.width;
+    //double width=MediaQuery.of(context).size.width;
     return SafeArea
     (
       child: Scaffold(

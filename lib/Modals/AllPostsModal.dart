@@ -132,7 +132,7 @@ class Content {
       String? title,
       String? content,
       String? imageName,
-      Null? imageUrl,
+      String? imageUrl,
       String? addedDate,
       Category? category,
       User? user}) {

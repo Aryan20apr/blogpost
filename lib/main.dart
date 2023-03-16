@@ -2,11 +2,12 @@
 
 import 'dart:developer';
 
+import 'package:blogpost/Modals/CategoriesModal.dart';
 import 'package:blogpost/providers/RefreshProvider.dart';
 import 'package:blogpost/providers/ThemeProvider.dart';
 import 'package:blogpost/providers/UserProvider.dart';
 import 'package:blogpost/screens/Content/Post/CompletePost.dart';
-import 'package:blogpost/screens/Content/Post/FeedPost.dart';
+
 import 'package:blogpost/screens/NavPage.dart';
 import 'package:blogpost/screens/WelcomeScreen.dart';
 import 'package:blogpost/utils/Themes.dart';
@@ -20,14 +21,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 
-import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 import 'Modals/AllPostsModal.dart';
-import 'Modals/UserPostsModal.dart';
-import 'fcm/FCMService.dart';
 import 'fcm/LocalNotificationService.dart';
 
 
@@ -108,7 +106,7 @@ await Firebase.initializeApp();
   runApp(
   
   DevicePreview(
-    enabled: false,//!kReleaseMode,
+    enabled: true,//!kReleaseMode,
     builder: (context) => MyApp(), // Wrap your app
   ),
 );
@@ -167,10 +165,11 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _goToArticleScreen(Map<String, dynamic> data) {
-    log('===DATE===: ${data['addDate']}');
-   Content post=Content(postId: data['postId'],title: data['title'],content: data['content'],imageName:data['imageName'] ,imageUrl:data['imageUrl'],addedDate:data['addedDate'] );
+    //log('===DATE===: ${data['addedDate']}');
     
+   Content post=Content(postId: int.parse(data['postId']),title: data['title'],category: Category(categoryTitle: data['category']),content: data['content'],imageName:data['imageName'] ,imageUrl:data['imageUrl'],addedDate:data['addedDate'],user: User(firstname: data['firstName'],lastname: data['lastName']) );
     
+    log("Logged in for going to article $loggedIn");
     if (loggedIn== true) {
       Get.to(
           () => Post(content: post, categoryTitle:data["category"],firstName:data["user"]));

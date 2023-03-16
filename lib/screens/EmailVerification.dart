@@ -1,38 +1,10 @@
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import 'package:sizer/sizer.dart';
-// class SignUp extends StatelessWidget {
-//   const SignUp({super.key});
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return SafeArea(child: Scaffold(backgroundColor:Theme.of(context).scaffoldBackgroundColor ,
-//     body: Container(
-//       height: 100.h,
-//       width: 100.w,
-//       child:LayoutBuilder(builder: (context,constraints){
-//         return Column(
-          
-//           crossAxisAlignment: CrossAxisAlignment.center,
-//           children: [
-            
-
-//           ],
-
-//         );
-//       }),
-//     ),));
-//   }
-// }
 
 
 import 'package:blogpost/Modals/otpresponse.dart';
-import 'package:blogpost/utils/Themes.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
@@ -76,7 +48,10 @@ class _EmailVerificationState extends State<EmailVerification> {
             return Column(
               //mainAxisAlignment: MainAxisAlignment.s,
               children: [
-                Container(height: 10.h,child:Center(child: Text("Please verify your email before signing up",style: TextStyle(color: isDarkMode?Colors.white:Colors.black,fontSize: 16.sp),textAlign: TextAlign.center,))),
+                Container(height: 10.h,child:Center(child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text("Please verify your email before signing up",style: TextStyle(color: isDarkMode?Colors.white:Colors.black,fontSize: 16.sp),textAlign: TextAlign.center,),
+                ))),
                 Container(
                   height: 70.h,
                   child: Form(
@@ -133,8 +108,8 @@ class _EmailVerificationState extends State<EmailVerification> {
                           ),
                       Padding(
                           padding:  EdgeInsets.all(8.0),
-                          child: ElevatedButton.icon(
-                            onPressed: ()async {
+                          child: NeumorphicStuffs().getImportantButton(
+                            ontapped: ()async {
                               if(_formKey.currentState!.validate())
                                 {
                 
@@ -146,15 +121,15 @@ class _EmailVerificationState extends State<EmailVerification> {
                                      
                                 }
                             },
-                            icon: Icon(Icons.password_sharp),
-                            label: Text("Send OTP"),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.green,
-                              minimumSize: Size(30.w,8.h),
-                              shape: new RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(10.0),
-                              ),
-                            ),
+                            //icon: Icon(Icons.password_sharp),
+                            text: "Send OTP",
+                            // style: ElevatedButton.styleFrom(
+                            //   backgroundColor: Colors.green,
+                            //   minimumSize: Size(30.w,8.h),
+                            //   shape: new RoundedRectangleBorder(
+                            //     borderRadius: new BorderRadius.circular(10.0),
+                            //   ),
+                            // ),
                           ),
                       )
                     ],

@@ -29,9 +29,10 @@ class _CreatePostState extends State<CreatePost> {
   late TextEditingController contentController;
    
 
+  @override
   void initState()
   {
-    
+    super.initState();
     titleController = TextEditingController();
     contentController = TextEditingController();
     
@@ -256,7 +257,7 @@ List<double> _getCustomItemsHeights() {
                     child: Container(
                       width: double.infinity,
                       child: NeumorphicStuffs().getImportantButton(
-                          text: 'Update Profile',
+                          text: 'Submit',
                           ontapped: () async {
                             if (_formKey.currentState!
                                 .validate() /*&& isChecked!*/) {

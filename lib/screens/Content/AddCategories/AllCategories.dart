@@ -1,12 +1,13 @@
 import 'dart:developer';
 
+import 'package:blogpost/Modals/SubscriptionResponseModal.dart';
 import 'package:blogpost/providers/SubscriptionController.dart';
+import 'package:blogpost/providers/UserProvider.dart';
 import 'package:blogpost/utils/api.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:provider/provider.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:sizer/sizer.dart';
 
@@ -46,16 +47,20 @@ Future<CategoriesModal> getAllCategories()
 
 Future<bool> onWillPop() async
 {API api=API();
+ UserProvider provider=Provider.of<UserProvider>(context,listen:false);
   if(catids.isNotEmpty)
   {
-    api.subscribeCategories(catids: catids);
+
+   SubscriptionResponseModal response=await api.subscribeCategories(catids: catids);
+   
+    provider.catids=response.data!;
 
   }
   if(uncatids.isNotEmpty)
   {
     log("Ids to be unsubscribed $uncatids" );
-    api.unsubscribeCategories(catids: uncatids);
-
+   SubscriptionResponseModal response=await  api.unsubscribeCategories(catids: uncatids);
+ provider.catids=response.data!;
   }
 
   Get.back(result:true);
@@ -71,7 +76,6 @@ return true;}
    
         
      double height=MediaQuery.of(context).size.height;
-    double width=MediaQuery.of(context).size.width;
     return SafeArea(child: WillPopScope(
       onWillPop: onWillPop,
       child: Scaffold(
@@ -94,16 +98,7 @@ return true;}
                  SliverAppBar(
                   bottom:TabBar(tabs:[Tab(child:Text("New",style: TextStyle(color:Theme.of(context).textTheme.headlineLarge!.color ))),Tab(child:Text("Following",style: TextStyle(color:Theme.of(context).textTheme.headlineLarge!.color )))]),
               expandedHeight: height*0.08,
-              // flexibleSpace: FlexibleSpaceBar(
-              //   title: Text('Add Topics', textScaleFactor: 1,style: TextStyle(color:Theme.of(context).textTheme.headlineLarge!.color ),
-              //   ),
-                
-                
-              //   // background: Image.asset(
-              //   //   'assets/register.jpg',
-              //   //   fit: BoxFit.fill,
-              //   // ),
-              // ),
+             
               
                   
             ),

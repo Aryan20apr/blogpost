@@ -1,7 +1,6 @@
 import 'package:blogpost/screens/WelcomeScreen.dart';
 import 'package:blogpost/utils/api.dart';
 import 'package:blogpost/utils/colors.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -24,7 +23,9 @@ class _ResetPasswordState extends State<ResetPassword> {
 
   late TextEditingController passwordController;
 
+@override
   void initState() {
+    super.initState();
     confirmPasswordController = TextEditingController();
     passwordController = TextEditingController();
   }

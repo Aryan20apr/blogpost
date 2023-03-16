@@ -1,20 +1,13 @@
-import 'dart:math';
 
-import 'package:blogpost/providers/RefreshProvider.dart';
 import 'package:blogpost/screens/Content/Post/CompletePost.dart';
 import 'package:blogpost/screens/NavPage.dart';
 import 'package:blogpost/utils/colors.dart';
 import 'package:blogpost/utils/constants.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../Modals/UserPostsModal.dart';
@@ -65,7 +58,7 @@ class UserPostsState extends State<UserPosts> with AutomaticKeepAliveClientMixin
   @override
   Widget build(BuildContext context) {
     double height=MediaQuery.of(context).size.height;
-    double width=MediaQuery.of(context).size.width;
+    //double width=MediaQuery.of(context).size.width;
 
     return SafeArea(child: Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -181,10 +174,10 @@ class _PostsListWidgetState extends State<PostsListWidget> {
                     borderRadius:BorderRadius.circular(10) ,
                     onTap: ()async
                     {
-                bool b=   await  Get.to(()=>Post(post: widget.posts[index],type: PostType.USERPOSTS,));
+                bool? b=   await  Get.to(()=>Post(post: widget.posts[index],type: PostType.USERPOSTS,),duration:Duration(seconds:1),transition: Transition.zoom);
                     // RefreshProvider provider=Provider.of<RefreshProvider>(context,listen: false);
                       print('b=$b');
-                     if(b)
+                     if(b!=null&&b)
                      
                       widget.function();
                      

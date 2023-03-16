@@ -16,16 +16,19 @@ class UserProvider extends ChangeNotifier
     String? _imagename;
     String? imageUrl;
  String? get getImageUrl => this.imageUrl;
+ List<int> catids=[];
 
   late FirebaseMessaging messaging;
 
   UserProvider.initialize(SharedPreferences prefs) 
   {
+    
     messaging = FirebaseMessaging.instance;
       saveDeviceFCMToken(prefs);
   }
   Future<void> saveDeviceFCMToken(SharedPreferences prefs) async {
     try {
+      log("Getting fcm token");
       String? token = await messaging.getToken();
       log('Token obtained: $token');
       prefs.setString(Constants.FCM_TOKEN, token!);

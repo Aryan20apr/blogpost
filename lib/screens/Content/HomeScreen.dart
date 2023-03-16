@@ -1,22 +1,13 @@
 import 'dart:developer';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:get/get.dart';
-import 'package:get/utils.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../Modals/AllPostsModal.dart';
-import '../../Modals/UserPostsModal.dart';
 import '../../utils/api.dart';
-import '../../utils/colors.dart';
 import '../NavPage.dart';
-import 'Post/CompletePost.dart';
 import 'Post/PostListWidget.dart';
 
 class HomePage extends StatefulWidget {
@@ -98,7 +89,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
   @override
   Widget build(BuildContext context) {
     double height=MediaQuery.of(context).size.height;
-    double width=MediaQuery.of(context).size.width;
+    //double width=MediaQuery.of(context).size.width;
 
     return SafeArea(child: Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,

@@ -147,7 +147,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                         
                                                          bool b= await   login(context,emailController.text,passwordController.text);
                                                          if(b)
-                                                         Get.offAll(()=>NavPage());
+                                                         Get.offAll(()=>NavPage(),transition:Transition.fadeIn,duration: Duration(milliseconds: 500));
                                                         }
                                                       }
                                         

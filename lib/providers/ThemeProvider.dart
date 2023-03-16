@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
-import '../utils/constants.dart';
 
 class ThemeProvider extends ChangeNotifier{
 

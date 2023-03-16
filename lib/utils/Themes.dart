@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 
 import 'package:google_fonts/google_fonts.dart';
@@ -64,7 +63,7 @@ final ThemeData LIGHT_THEME_DATA = ThemeData(
 
 
   ),
-  scaffoldBackgroundColor: Colors.grey.shade300,
+  scaffoldBackgroundColor: Colors.white,
   // primaryColor: Colors.amber, //app bar and button color
   brightness: Brightness.light,
 

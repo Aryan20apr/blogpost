@@ -1,16 +1,9 @@
-import 'dart:developer';
-import 'dart:math';
 
 import 'package:blogpost/screens/Content/AddCategories/AllCategories.dart';
 import 'package:blogpost/screens/Content/CategoryPostsScreen.dart';
-import 'package:blogpost/screens/Content/Post/PostListWidget.dart';
 
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
 import 'package:line_icons/line_icons.dart';
@@ -62,9 +55,9 @@ void _onRefresh() async{
   @override
   Widget build(BuildContext context) {
     double height=MediaQuery.of(context).size.height;
-    double width=MediaQuery.of(context).size.width;
-var brightness=SchedulerBinding.instance.window.platformBrightness;
-    bool isDarkMode=brightness==Brightness.dark;
+   // double width=MediaQuery.of(context).size.width;
+//var brightness=SchedulerBinding.instance.window.platformBrightness;
+    //bool isDarkMode=brightness==Brightness.dark;
     return SafeArea(child: Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       //appBar: AppBar(title: Text('Home')),
